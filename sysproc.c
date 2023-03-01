@@ -89,3 +89,15 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_trace(void){
+  int on;
+  if (argint(0, &on) < 0)
+    return -1;
+  if (on)
+    myproc()->tracing = 1;
+  else
+    myproc()->tracing = 0;
+  return myproc()->syscall_count;
+}
